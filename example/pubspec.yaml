@@ -1,0 +1,12 @@
+name: lumberdash_emoji_logger
+description: Example project for Lumberdash emoji logger
+version: 1.0.0
+
+environment:
+  sdk: ">=2.4.0 <3.0.0"
+
+dependencies:
+  lumberdash: ^2.1.0
+  emoji_lumberdash:
+    path: ../
+
