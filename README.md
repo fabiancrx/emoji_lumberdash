@@ -19,11 +19,12 @@ The logger can be customized as follows:
 
   putLumberdashToWork(withClients: [
     EmojiLumberdash(
-      methodCount: 0   // Number of stacktrace lines to show in the logs for non-error entries
-      lineLength: 50,  // The length of the horizontal separator lines
-      printTime: false,  // Whether to show the current system time at which the log was submitted
-      errorMethodCount: 5,  // Number of stacktrace lines to show in the log for error entries
-
+      methodCount: 0         // Number of stacktrace lines to show in the logs for non-error entries
+      lineLength: 50,        // The length of the horizontal separator lines
+      printTime: false,      // Whether to show the current system time at which the log was submitted
+      errorMethodCount: 5,   // Number of stacktrace lines to show in the log for error entries
+      printEmoji:true,       // Whether to show an emoji at the start of the log
+      printBox:true,         // Whether to wrap the log body into boxes.             
     )
   ]);
 

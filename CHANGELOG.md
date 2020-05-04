@@ -1,3 +1,9 @@
+## 1.0.1
+
+- Added option to disable emoji
+- Added option to disable framing messages  into boxes
+- Better formatting of timestamp
+
 ## 1.0.0
 
-- Initial version, created by Fabian Quintanar
+- Initial release

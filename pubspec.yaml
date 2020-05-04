@@ -1,6 +1,6 @@
 name: emoji_lumberdash
 description: Lumberdash package that colors your logs adds emoji's for more visual clarity.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/fabiancrx/emoji_lumberdash
 author: Fabian Quintanar <croxx5f@protonmail.com>
 
@@ -10,7 +10,6 @@ environment:
 
 dependencies:
   lumberdash: ^2.1.0
-  meta: ^1.0.0
   ansicolor: ^1.0.2
 
 dev_dependencies:
