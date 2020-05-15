@@ -1,6 +1,6 @@
 name: emoji_lumberdash
-description: Lumberdash package that colors your logs adds emoji's for more visual clarity.
-version: 1.0.1
+description: Customizable lumberdash client that colors your logs and adds emoji's for more visual clarity.
+version: 1.0.2
 homepage: https://github.com/fabiancrx/emoji_lumberdash
 author: Fabian Quintanar <croxx5f@protonmail.com>
 

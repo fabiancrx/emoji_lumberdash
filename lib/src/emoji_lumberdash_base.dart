@@ -3,28 +3,31 @@ library emoji_lumberdash;
 import 'package:ansicolor/ansicolor.dart';
 import 'package:lumberdash/lumberdash.dart';
 
-/// [LumberdashClient] that colors your logs adds emoji's for more visual clarity.
+/// Customizable [LumberdashClient]  that colors your logs and adds emoji's
+/// for more visual clarity.
 class EmojiLumberdash extends LumberdashClient {
-  /// Number of stacktrace lines to show in the logs for non-error entries
+  /// Number of stacktrace lines to show in the logs for non-error entries.
   final int methodCount;
 
-  /// Number of stacktrace lines to show in the log for error entries
+  /// Number of stacktrace lines to show in the log for error entries.
   final int errorMethodCount;
 
-  /// The length of the horizontal separator lines
+  /// The length of the horizontal separator lines. Only applicable if printBox is true.
   final int lineLength;
 
-  /// Whether to show the current system time at which the log was submitted
+  /// Whether to show the current system time at which the log was submitted.
   final bool printTime;
 
-  /// Whether to show an emoji at the start of the log
+  /// Whether to show an emoji at the start of the log.
   final bool printEmoji;
 
-  /// Whether to wrap the log body into boxes. (More readable but
-  /// ┌───────
-  /// │ It takes more space)
-  /// └───────
+  /// Whether to wrap the log body into boxes. More readable but
+  ///  it takes more space.
   final bool printBox;
+
+  /// Whether to color the output .Disable it if the terminal is not capable
+  /// of displaying ansi colors properly.
+  final bool printColors;
 
   String _topBorder = '';
   String _middleBorder = '';
@@ -36,7 +39,8 @@ class EmojiLumberdash extends LumberdashClient {
       this.lineLength = 50,
       this.printTime = false,
       this.printEmoji = true,
-      this.printBox = true}) {
+      this.printBox = true,
+      this.printColors = true}) {
     var doubleDividerLine = StringBuffer();
     var singleDividerLine = StringBuffer();
 
@@ -104,6 +108,9 @@ class EmojiLumberdash extends LumberdashClient {
     StackTrace stacktrace,
   }) {
     final color = _levelColors[tag];
+
+    if (!printColors) color_disabled = true;
+
     var buffer = <String>[];
 
     if (printBox) buffer.add(color(_topBorder));

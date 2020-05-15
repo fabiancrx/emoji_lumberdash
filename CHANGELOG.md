@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Added option to disable color
+
 ## 1.0.1
 
 - Added option to disable emoji
