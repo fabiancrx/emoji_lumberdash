@@ -1,3 +1,7 @@
+## 2.0.0
+
+- Updated to support dart's null safety
+
 ## 1.0.2
 
 - Added option to disable color

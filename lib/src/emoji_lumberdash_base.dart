@@ -29,9 +29,16 @@ class EmojiLumberdash extends LumberdashClient {
   /// of displaying ansi colors properly.
   final bool printColors;
 
-  String _topBorder = '';
-  String _middleBorder = '';
-  String _bottomBorder = '';
+  static const String _messageTag = 'message';
+  static const String _warningTag = 'warning';
+  static const String _errorTag = 'error';
+  static const String _fatalTag = 'fatal';
+
+  late final String _topBorder;
+
+  late final String _middleBorder;
+
+  late final String _bottomBorder;
 
   EmojiLumberdash(
       {this.methodCount = 0,
@@ -60,58 +67,59 @@ class EmojiLumberdash extends LumberdashClient {
   static const _middleCorner = '├';
   static const _doubleDivider = '─';
   static const _singleDivider = '┄';
-  static var _verticalLine = '│';
   static const _bottomLeftCorner = '└';
+  static var _verticalLine = '│';
 
   static final Map<String, AnsiPen> _levelColors = {
-    'message': AnsiPen()..white(),
-    'warning': AnsiPen()..yellow(),
-    'error': AnsiPen()..xterm(196),
-    'fatal': AnsiPen()..xterm(200),
+    _messageTag: AnsiPen()..white(),
+    _warningTag: AnsiPen()..yellow(),
+    _errorTag: AnsiPen()..xterm(196),
+    _fatalTag: AnsiPen()..xterm(200),
   };
 
   static const Map<String, String> _levelEmojis = {
-    'message': '💡  ',
-    'warning': '⚠️ ',
-    'error': '⛔ ',
-    'fatal': '💀  ',
+    _messageTag: '💡  ',
+    _warningTag: '⚠️ ',
+    _errorTag: '⛔ ',
+    _fatalTag: '💀  ',
   };
 
   /// Prints a regular message preceded by a light bulb and in grey color.
   @override
-  void logMessage(String message, [Map<String, String> extras]) {
-    _printFormatted('message', message, extras: extras);
+  void logMessage(String message, [Map<String, String>? extras]) {
+    _printFormatted(_messageTag, message, extras: extras);
   }
 
   /// Prints the given message preceded by a warning sign and in yellow color.
   @override
-  void logWarning(String message, [Map<String, String> extras]) {
-    _printFormatted('warning', message, extras: extras);
-  }
-
-  /// Prints the given message preceded by a skull sign and in magenta color.
-  @override
-  void logFatal(String message, [Map<String, String> extras]) {
-    _printFormatted('fatal', message, extras: extras);
+  void logWarning(String message, [Map<String, String>? extras]) {
+    _printFormatted(_warningTag, message, extras: extras);
   }
 
   /// Prints the given message preceded by a no-entry sign  and in red color.
   @override
   void logError(dynamic exception, [dynamic stacktrace]) {
-    _printFormatted('error', exception.toString(), stacktrace: stacktrace);
+    _printFormatted(_errorTag, exception.toString(), stacktrace: stacktrace);
+  }
+
+  /// Prints the given message preceded by a skull sign and in magenta color.
+  @override
+  void logFatal(String message, [Map<String, String>? extras]) {
+    _printFormatted(_fatalTag, message, extras: extras);
   }
 
   void _printFormatted(
     String tag,
     String message, {
-    Map<String, String> extras,
-    StackTrace stacktrace,
+    Map<String, String>? extras,
+    StackTrace? stacktrace,
   }) {
-    final color = _levelColors[tag];
-
-    if (!printColors) color_disabled = true;
+    final color = _levelColors[tag] ?? AnsiPen()
+      ..white();
 
     var buffer = <String>[];
+
+    if (!printColors) ansiColorDisabled = true;
 
     if (printBox) buffer.add(color(_topBorder));
 
@@ -129,7 +137,7 @@ class EmojiLumberdash extends LumberdashClient {
       }
     }
     // Stacktrace
-    List<String> stackTraceFormatted;
+    List<String>? stackTraceFormatted;
     if (stacktrace == null) {
       if (methodCount > 0) {
         stackTraceFormatted = formatStackTrace(StackTrace.current, methodCount, color);
@@ -149,7 +157,7 @@ class EmojiLumberdash extends LumberdashClient {
     if (printTime) {
       if (printBox) buffer.add(color(_middleBorder));
 
-      buffer.add(color('$_verticalLine${_getTime()}'));
+      buffer.add(color('$_verticalLine${_getFormattedTime()}'));
     }
     if (printBox) buffer.add(color(_bottomBorder));
 
@@ -175,7 +183,7 @@ class EmojiLumberdash extends LumberdashClient {
     return formatted;
   }
 
-  String _getTime() {
+  String _getFormattedTime() {
     final now = DateTime.now();
 
     var h = now.hour;

@@ -1,7 +1,7 @@
 # emoji_lumberdash
 
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
-![Dart Version](https://img.shields.io/badge/dart-2.4-blue)
+![Dart Version](https://img.shields.io/badge/dart-2.12-blue)
 ![MADE WITH](https://img.shields.io/static/v1.svg?labelColor=lightgray&color=gray&label=flutter&message=compatible&logo=flutter&logoColor=blue&cacheSeconds=33600)
 
 Package for [lumberdash](https://github.com/jorgecoca/lumberdash) that colors your logs and adds emoji's for more visual clarity.
@@ -21,7 +21,7 @@ The logger can be customized as follows:
 
   putLumberdashToWork(withClients: [
     EmojiLumberdash(
-      methodCount: 0         // Number of stacktrace lines to show in the logs for non-error entries.
+      methodCount: 0,         // Number of stacktrace lines to show in the logs for non-error entries.
       lineLength: 50,        // The length of the horizontal separator lines.
       printTime: false,      // Whether to show the current system time at which the log was submitted.
       errorMethodCount: 5,   // Number of stacktrace lines to show in the log for error entries.
@@ -43,7 +43,7 @@ To achieve results  as :
 
 ```yaml
 dependencies:
-  emoji_lumberdash: 
+  emoji_lumberdash: latest
 ```
 ## How to use
 Pass an instance of `EmojiLumberdash` to `lumberdash`:
@@ -60,4 +60,4 @@ void main() {
   logError(Exception('Hello Error'), stacktrace: StackTrace.current);
 }
 ```
-And that's it you have a beautiful highly customizable logger.
+That's it you have a beautiful highly customizable logger.
